@@ -19,17 +19,21 @@ router.get('/', (req, res) => {
       });
   });
 
-//ROUTE TWEET POST POUR ENVOYER UN TWEET AVEC LE USER
+//ROUTE TWEET/NEW POST POUR ENVOYER UN TWEET AVEC LE USER
   router.post('/new', (req, res) => {
     
         const newTweet = new Tweet({
           tweet: req.body.tweet,
-        //   username : User.username
+          token : req.body.token,
+          firstname : req.body.firstname,
+          username : req.body.username,
+          // user : newTweet.user.push(Users) ,
           
         });
   
         newTweet.save().then(data => {
           res.json({ result: true});
+          console.log(data)
         });
     });
   

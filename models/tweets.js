@@ -3,8 +3,10 @@ const mongoose = require('mongoose')
 
 const tweetSchema = mongoose.Schema({
     tweet: String,
-    // username :String
-    // user: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
+   token : String,
+   firstname : String,
+   username : String,
+   //  user: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
    });
    
    const Tweet = mongoose.model('tweets', tweetSchema);
