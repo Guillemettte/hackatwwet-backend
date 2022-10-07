@@ -8,6 +8,7 @@ const { checkBody } = require('../modules/checkBody');
 const uid2 = require('uid2');
 const bcrypt = require('bcrypt');
 const fetch = require('node-fetch');
+const { findOne } = require('../models/tweets');
 // const { default: user } = require('../../hackatweet-frontend/reducers/user');
 
 
@@ -27,6 +28,8 @@ router.get('/', (req, res) => {
           token : req.body.token,
           firstname : req.body.firstname,
           username : req.body.username,
+          nblike: [],
+          visible: true,
           // user : newTweet.user.push(Users) ,
           
         });
@@ -37,6 +40,22 @@ router.get('/', (req, res) => {
         });
     });
   
+  
+// ROUTE POUR LIKER UN TWEET
+router.post('/liked', (req, res) => {
+  User.findOne({token: req.body.token}).then(data => {
+    console.log(data)
+    console.log("req.body", req.body)
+    Tweet.updateOne(
+      {tweet: req.body.tweet},
+      {$push:{nblike: data._id}}
+    ).then(updatedata => res.json({ result: true}));
+      
+  });
+})
+
+
+//quand je clique sur le like, je récupère le token du tweet
   
 
   
